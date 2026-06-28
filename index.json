@@ -1,0 +1,25 @@
+{
+  "version": "v1",
+  "blocklist": [],
+  "data": [
+    {
+      "schema_version": "1.0.0",
+      "id": "lks_baker",
+      "name": "LKS Baker",
+      "tagline": "LKS Baker",
+      "version": "0.0.1",
+      "type": "add-on",
+      "maintainer": "LKS <Liam@lksgraphics.ca>",
+      "license": [
+        "SPDX:GPL-3.0-or-later"
+      ],
+      "blender_version_min": "4.2.0",
+      "permissions": {
+        "files": "Save / load files"
+      },
+      "archive_url": "./lks_baker-0.0.1.zip",
+      "archive_size": 54744669,
+      "archive_hash": "sha256:9eea9eb53e94d1cfdbc8ced5e2888d6dbb2bc59c2c50b49ebf7941fc16481927"
+    }
+  ]
+}

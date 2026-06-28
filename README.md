@@ -4,6 +4,32 @@
 
 Standalone texture baking toolkit for Blender 4.2+. Organize high-to-low poly baking into structured **Bake Projects** with per-map-type control, GPU-accelerated image filters, and a deep test pyramid.
 
+## Installation
+
+### Install as a Blender Extension (recommended)
+
+1. Open Blender → Edit → Preferences → Get Extensions
+2. Click the arrow next to **Repositories** → **Add Repository**
+3. Enter:
+   - **Name:** LKS Baker
+   - **URL:** `https://liamsmyth.github.io/LKS_Baker/`
+4. Click **Add Repository**
+5. Search for "LKS Baker" → click **Install**
+
+Blender will handle updates automatically whenever a new release is published.
+
+### Manual Install (folder)
+
+1. Copy the `lks_baker` folder into Blender's `scripts/addons/` directory
+2. Enable **LKS Baker** in Edit → Preferences → Add-ons
+
+The panel appears in the 3D View sidebar (N key) under the **LKS Baker** tab.
+
+## Requirements
+
+- Blender 4.2.0 or later
+- Python packages: `numpy`, `scipy`, `Pillow` (install into Blender's Python via `pip install --target <blender>/python/Lib/site-packages scipy pillow`)
+
 ## Features
 
 - **Project-based workflow** — group source/target meshes into Bake Projects and Bake Groups, with clear high/low role assignments
@@ -17,12 +43,6 @@ Standalone texture baking toolkit for Blender 4.2+. Organize high-to-low poly ba
 - **Headless testing** — comprehensive test suite runnable in `--background` mode for CI/CD integration
 - **Hot-reload support** — disable/re-enable the addon to reload all code without restarting Blender
 
-## Installation
-
-1. Copy this folder into Blender's addons directory
-2. Enable **LKS Baker** in Edit → Preferences → Add-ons
-3. Find the **LKS Baker** panel in the 3D View sidebar (N key)
-
 ## Quick Start
 
 1. In the 3D View sidebar → **LKS Baker** tab, click **New Bake Project**
@@ -30,11 +50,6 @@ Standalone texture baking toolkit for Blender 4.2+. Organize high-to-low poly ba
 3. Assign each object to its **High** or **Low** role
 4. Select which map types to bake (AO, Normal, Curvature, etc.)
 5. Click **Bake Project** to run Cycles baking
-
-## Requirements
-
-- Blender 4.2.0 or later
-- Python packages: `numpy`, `scipy`, `Pillow` (install into Blender's Python via `pip install --target <blender>/python/Lib/site-packages scipy pillow`)
 
 ## Testing
 

@@ -1,5 +1,7 @@
 # LKS Baker
 
+![LKS Baker screenshot](_readme_assets/screenshot.jpg)
+
 Standalone texture baking toolkit for Blender 4.2+. Organize high-to-low poly baking into structured **Bake Projects** with per-map-type control, GPU-accelerated image filters, and a deep test pyramid.
 
 ## Features

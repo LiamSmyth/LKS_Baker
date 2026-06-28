@@ -1,40 +1,64 @@
-# _template_addon
+# LKS Baker
 
-Blender Python addon scaffolding template — a complete, production-ready skeleton for Blender 4.2+ extension addons. This template is instantiated by the `addon_tools/generate.py` script, which copies it and replaces `LKS Baker`, `lks_baker`, and `LKS Baker` placeholder tokens with real values.
+Standalone texture baking toolkit for Blender 4.2+. Organize high-to-low poly baking into structured **Bake Projects** with per-map-type control, GPU-accelerated image filters, and a deep test pyramid.
 
-## What the Template Provides
+## Features
 
-- **Modular code architecture** — separate files for operators (`ops/`), utilities (`util/`), UI panels (`ui.py`), scene properties (`properties.py`), and a central registration orchestrator (`register_addon.py`)
-- **Submodule (junction) support** — `submodules/` directory for Windows directory junctions that link in shared code from the parent `blender_utils/submodules/`
-- **Dev-only module** — optional `dev/` package for local scaffolding (mock keymaps, test operators, debug panels) that is auto-excluded from published builds
-- **Headless testing** — `unittest`-based test suite that runs inside Blender in `--background` mode
-- **Batch launchers** — `.bat` scripts for launching Blender, running tests, building extension zips, and publishing to GitHub
-- **AI-assisted development** — pre-configured `.cursor/` rules and agents, plus `.github/instructions/` for LLM context
+- **Project-based workflow** — group source/target meshes into Bake Projects and Bake Groups, with clear high/low role assignments
+- **Multi-map baking** — bake normals, AO, curvature, bent normals, specular, emissive, roughness, metalness, and more via Blender Cycles
+- **GPU image filters** — GPU-accelerated post-processing: blur, dilate, normalize, remap coordinate systems, flip channels
+- **Bent normal & AO maps** — dedicated CPU and GPU implementations including HBAO variants, normal cavity, and hemisphere trace
+- **Curvature maps** — multi-method soft curvature with CPU/GPU parity testing
+- **Texture derivatives** — automatic generation of derived maps (e.g., AO from curvature, roughness from specular)
+- **Margin & resolution control** — per-project texture resolution, padding, antialiasing, and dilation settings
+- **Export pipeline** — export individual bake groups or full projects with consistent naming conventions
+- **Headless testing** — comprehensive test suite runnable in `--background` mode for CI/CD integration
+- **Hot-reload support** — disable/re-enable the addon to reload all code without restarting Blender
 
-## Registration Order
+## Installation
 
-Properties → Ops → UI → Submodules (each with `parent_panel_id`) → Dev
+1. Copy this folder into Blender's addons directory
+2. Enable **LKS Baker** in Edit → Preferences → Add-ons
+3. Find the **LKS Baker** panel in the 3D View sidebar (N key)
 
-Unregistration is strict reverse order. The `__init__.py` performs a deep-reload of all submodules before every registration cycle for hot-reload support.
+## Quick Start
 
-## Submodule Contract
+1. In the 3D View sidebar → **LKS Baker** tab, click **New Bake Project**
+2. Select your high-poly and low-poly objects, click **Add to Bake Group**
+3. Assign each object to its **High** or **Low** role
+4. Select which map types to bake (AO, Normal, Curvature, etc.)
+5. Click **Bake Project** to run Cycles baking
 
-Shared modules linked into `submodules/` must expose three functions:
+## Requirements
 
-```python
-def register(parent_panel_id: str | None = None) -> None: ...
-def unregister() -> None: ...
-def reload() -> None: ...
+- Blender 4.2.0 or later
+- Python packages: `numpy`, `scipy`, `Pillow` (install into Blender's Python via `pip install --target <blender>/python/Lib/site-packages scipy pillow`)
+
+## Testing
+
+Run the headless test suite:
+
+```powershell
+blender.exe --background --factory-startup --python-exit-code 1 --python tests\test_basic.py
 ```
 
-Submodules are standalone — they never import from the consuming addon.
+## Project Structure
 
-## Publishing Filters
+```
+lks_baker/
+├── bake_ops/          # Core baking operators, engine, map types, and tests
+├── shared_utilities/  # Shared helpers (mesh, UV, collection, reload)
+├── ops/               # Placeholder for future additional operators
+├── util/              # Placeholder for future utilities
+├── dev/               # Local-only mock data and test operators (excluded from builds)
+├── tests/             # Headless test suite
+├── register_addon.py  # Central registration orchestrator
+└── __init__.py        # Deep-reload entry point
+```
 
-Files pass through three gates before reaching end users:
+## Publishing
 
-| Gate | Config | Controls |
-|---|---|---|
-| Extension zip | `blender_manifest.toml` `paths_exclude_pattern` | What goes into the `.zip` |
-| Remote `main` branch | `.remoteignore` + `.gitignore` | What gets pushed to GitHub |
-| Release build | Both of the above | Release builds from remote clone |
+Uses the shared `addon_tools` pipeline:
+- `push_remote.bat` — push filtered code to GitHub (excludes dev files via `.remoteignore`)
+- `release.bat` — bump version, push code, build extension zip
+- `test_sandbox_extension.bat` — verify extension zip integrity

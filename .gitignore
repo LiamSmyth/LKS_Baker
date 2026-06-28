@@ -1,0 +1,12 @@
+# LKS Baker — Git ignore
+__pycache__/
+*.pyc
+*.pyo
+*.zip
+*.blend1
+*.blend2
+local_paths.bat
+addon_tools/
+.vscode/
+.pytest_cache/
+.ruff_cache/

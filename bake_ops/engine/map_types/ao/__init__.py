@@ -1,0 +1,1 @@
+"""AO map type package."""

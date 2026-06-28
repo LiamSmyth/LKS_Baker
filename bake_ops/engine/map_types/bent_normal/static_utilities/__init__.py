@@ -1,0 +1,1 @@
+"""Shared bent-normal algorithms."""

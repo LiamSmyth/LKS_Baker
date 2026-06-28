@@ -1,0 +1,37 @@
+schema_version = "1.0.0"
+id = "lks_baker"
+version = "0.1.0"
+name = "LKS Baker"
+tagline = "LKS Baker"
+maintainer = "LKS <Liam@lksgraphics.ca>"
+type = "add-on"
+license = ["SPDX:GPL-3.0-or-later"]
+blender_version_min = "4.2.0"
+
+[permissions]
+files = "Save / load files"
+
+[build]
+paths_exclude_pattern = [
+    "__pycache__/",
+    "/addon_tools/",
+    ".*",
+    "/*.zip",
+    "*.blend*",
+    "/tests/",
+    "/debug/",
+    "/dev/",
+    "/docs/",
+    "/examples/",
+    "/prompt/",
+    "/dependencies/",
+    "*.bat",
+    "*.md",
+    "/test.py",
+    "/test_sandbox_extension.py",
+    "/publish_*.py",
+    "/release.py",
+    "/requirements.txt",
+    "/addon_config.toml",
+    "/local_paths.bat",
+]
